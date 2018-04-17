@@ -9,6 +9,7 @@ db.sequelize.sync();
 const app = express();
 
 app.use(bodyParser.json());
+app.use('/authors', require('./routes/authors'));
 
 app.get('/', (req, res) => {
     res.status(200).send('AEKJHFKJSDHG');
