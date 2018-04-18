@@ -34,6 +34,7 @@ router.post('/', (req,res) => {
         });
 });
 
+//works
 router.put('/:id', (req,res) => {
     models.Author.findById(req.params.id)
         .then( author => {
@@ -42,6 +43,7 @@ router.put('/:id', (req,res) => {
         });
 });
 
+//works
 router.delete('/:id', (req,res) => {
     models.Author.findById(req.params.id)
         .then( author => {
