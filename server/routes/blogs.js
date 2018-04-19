@@ -22,13 +22,16 @@ router.get('/featured', (req,res) => {
 router.get('/:id', (req,res) => {
     models.Blog.findById(req.params.id)
         .then( blogs => {
-            res.status(200).json( blogs )
+            if(blogs){res.status(200).json( blogs )}
+            else{res.status(404).send('Error 404')}
         });
 });
 
 //works
 router.post('/', (req,res) => {
-    models.Blog.create(req.body)
+    var obj =      req.body;
+    obj.authorId = req.query.authorId;
+    models.Blog.create(obj)
         .then( blog => {
             res.status(201).json( blog )
         });
@@ -39,7 +42,7 @@ router.put('/:id', (req,res) => {
     models.Blog.findById(req.params.id)
         .then( blog => {
             blog.updateAttributes(req.body);
-            res.status(201).json( blog )
+            res.status(204).json( blog )
         });
 });
 
@@ -48,7 +51,7 @@ router.delete('/:id', (req,res) => {
     models.Blog.findById(req.params.id)
         .then( blog => {
             blog.destroy();
-            res.status(201).json( blog )
+            res.status(200).json( blog )
         });
 });
 

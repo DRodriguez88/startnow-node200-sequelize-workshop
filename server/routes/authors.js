@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
 router.get('/:id', (req,res) => {
     models.Author.findById(req.params.id)
         .then( authors => {
-            res.status(200).json( authors )
+            if(authors){res.status(200).json( authors )}
+            else{res.status(404).send('Error 404')}
         });
 });
 
@@ -39,7 +40,7 @@ router.put('/:id', (req,res) => {
     models.Author.findById(req.params.id)
         .then( author => {
             author.updateAttributes(req.body);
-            res.status(201).json( author )
+            res.status(204).json( author )
         });
 });
 
@@ -48,7 +49,7 @@ router.delete('/:id', (req,res) => {
     models.Author.findById(req.params.id)
         .then( author => {
             author.destroy();
-            res.status(201).json( author )
+            res.status(200).json( author )
         });
 });
 
